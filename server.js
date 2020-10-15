@@ -6,7 +6,13 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 const EventSource = require("eventsource");
 
-const constants = require('./constants')
+var constants = {}
+try {
+    constants = require('./constants')
+} catch (error) {
+    console.log("Module 'constants' not found, trying Heroku config vars.")
+}
+
 const eventListeners = require('./eventListeners.js');
 var SSE = require('express-sse');
 

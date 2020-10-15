@@ -1,5 +1,3 @@
-const constants = require("./constants")
-
 var lastButtonPressEvent = {
     deviceId: "",
     timestamp: 0
@@ -47,11 +45,6 @@ function handleButtonStateChanged (event) {
     }
     // console.log(message);
     exports.sse.send(message)
-}
-
-// Helper function to get the device number from the Particle device_id
-function getDeviceNumber(deviceId) {
-    return constants.devices.findIndex( el => el.device_id === deviceId)
 }
 
 exports.sse = null;
