@@ -33,6 +33,8 @@ const device_id_1 = process.env.DEVICE_ID_1 || constants.device_id_1;
 const access_token_2 = process.env.ACCESS_TOKEN_2 || constants.access_token_2;
 const device_id_2 = process.env.DEVICE_ID_2 || constants.device_id_2;
 
+eventListeners.deviceIds = [ device_id_1, device_id_2 ];
+
 const devices = [
     {
         device_id: device_id_1,
@@ -53,12 +55,18 @@ for (let device of devices) {
     let eventURL = 'https://api.particle.io/v1/devices/' + device.device_id + '/events?access_token=' + device.access_token
     var source = new EventSource(eventURL);
 
-    // add event listeners here
+    /////////////////////////////////////////////////////////
+    // Add your event listeners here.
+    // You don't have to change anything else in this file.
+    /////////////////////////////////////////////////////////
     source.addEventListener('buttonStateChanged', eventListeners.handleButtonStateChanged)
     source.addEventListener('blinkingStateChanged', eventListeners.handleBlinkingStateChanged)
+
+    /////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////
 }
 
-// Read a variable. E.g.
+// Read a variable. Example:
 // GET /api/device/0/variable/buttonState
 app.get('/api/device/:id/variable/:name', (req, res) => {
     let id = req.params.id;
@@ -72,15 +80,18 @@ app.get('/api/device/:id/variable/:name', (req, res) => {
         let url = 'https://api.particle.io/v1/devices/' + device.device_id + '/' + variableName + '?access_token=' + device.access_token;
         axios.get(url)
             .then(response => {
-                res.send({ result: response.data.result });
+                res.send({ 
+                    timeStamp: response.data.coreInfo.last_heard,
+                    result: response.data.result, 
+                });
             })
-            .catch(error => {
+            .catch( error => {
                 res.status(500).send({ error: "could not read current value" });
             });
     }
 })
 
-// Call a function. E.g.
+// Call a function. Example:
 // POST /api/device/0/function/blinkRed
 app.post('/api/device/:id/function/:name', (req, res) => {
 
@@ -92,15 +103,15 @@ app.post('/api/device/:id/function/:name', (req, res) => {
     }
     else {
         let device = devices[id];
-        let data = req.body.text;
+        let data = { arg: req.body.arg }; 
+
         let url = 'https://api.particle.io/v1/devices/' + device.device_id + '/' + functionName + '?access_token=' + device.access_token;
 
-        axios.post(url, { arg: data })
-            .then(function (response) {
+        axios.post(url, data)
+            .then( response => {
                 res.send({ result: response.data.return_value })
-                //sendEvent(JSON.stringify({ text: text }));
             })
-            .catch(function (error) {
+            .catch( error => {
                 res.status(500).send({ error: "could not execute function " + functionName })
             });
     }
