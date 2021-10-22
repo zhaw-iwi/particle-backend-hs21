@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Functions and Variables Example</title>
+</head>
+
+<body>
+    <h4>Events</h4>
+    <!-- Events example -->
+    <p>Last Event: <span id="lastevent"></span></p>
+    <p>Counter (Event): <span id="counterevent"></span></p>
+
+    <hr>
+    <h4>Variables</h4>
+    <!-- Read variables example -->
+    <p>Counter (Variable): <span id="counter"></span></p>
+    <button onclick="getCounter()">Get counter</button>
+    <br>
+
+    <hr>
+    <h4>Functions</h4>
+    <!-- Call functions example  -->
+    <p>Set Counter</p>
+    <input type="number" id="counterinput" value="0">
+    <button onclick="setCounter()">Set counter</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="cloud_demo.js"></script>
+</body>
+
+</html>
