@@ -10,7 +10,7 @@ var useDb = false;
 var client;
 if (mongo_url) {
     client = new MongoClient(mongo_url, { useNewUrlParser: true, useUnifiedTopology: true });
-    useDB = true;
+    useDb = true;
 }
  
 // write a single object to a collection
