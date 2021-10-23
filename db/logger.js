@@ -6,10 +6,16 @@ try {
     console.log("Module 'constants' not found, trying Heroku config vars.")
 }
 const mongo_url = process.env.MONGO_URL || constants.mongo_url;
-const client = new MongoClient(mongo_url, { useNewUrlParser: true, useUnifiedTopology: true });
+var useDb = false;
+var client;
+if (mongo_url) {
+    client = new MongoClient(mongo_url, { useNewUrlParser: true, useUnifiedTopology: true });
+    useDB = true;
+}
  
 // write a single object to a collection
 exports.logOne = async function (dbName, collectionName, data) {
+    if (!useDb) return;
     try {
         await client.connect();
         //console.log('Connected successfully to server');
@@ -25,6 +31,7 @@ exports.logOne = async function (dbName, collectionName, data) {
 
 // write an array of objects to a collection
 exports.logMany = async function (dbName, collectionName, data) {
+    if (!useDb) return;
     try {
         await client.connect();
         //console.log('Connected successfully to server');

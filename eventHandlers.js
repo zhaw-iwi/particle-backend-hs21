@@ -25,7 +25,7 @@ function handleMyEvent(event) {
         // TODO: do something meaningful with the data
 
         // Log the event in the database
-        logger.logOne("MyDB", "MyEvent", data);
+        // logger.logOne("MyDB", "MyEvent", data);
 
         // send data to all connected clients
         exports.sendEvent(data);
