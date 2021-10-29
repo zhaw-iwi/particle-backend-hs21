@@ -17,7 +17,9 @@ initSSE();
 function updateVariables(data) {
     // update the html elements
     document.getElementById("lastevent").innerHTML = JSON.stringify(data);
-    document.getElementById("counterevent").innerHTML = data.eventData;
+    if (data.eventName === "MyEvent") {
+        document.getElementById("counterevent").innerHTML = data.eventData;
+    }
 }
 
 async function setCounter() {
