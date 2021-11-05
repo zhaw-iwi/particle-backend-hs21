@@ -3,11 +3,11 @@ const logger = require('./db/logger.js');
 exports.sendEvent = null;
 
 exports.registerEventHandlers = function (source) {
-    source.addEventListener('MyEvent', handleMyEvent);
+    source.addEventListener('Lux', forwardEvent);
     // Register more event handlers here
 }
 
-function handleMyEvent(event) {
+function forwardEvent(event) {
     // read variables from the event
     var data = {
         eventName: event.type,
@@ -16,16 +16,9 @@ function handleMyEvent(event) {
         timestamp: JSON.parse(event.data).published_at
     };
 
-    //var datetime = new Date(data.timestamp); // convert the timestamp to a Date object
-
     try {        
-        // you can add more properties to your data object
-        data.myMessage = "Hello World";
-
-        // TODO: do something meaningful with the data
-
         // Log the event in the database
-        // logger.logOne("MyDB", "MyEvent", data);
+        // logger.logOne("MyDB", "Lux", data);
 
         // send data to all connected clients
         exports.sendEvent(data);
