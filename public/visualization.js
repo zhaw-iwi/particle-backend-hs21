@@ -19,6 +19,8 @@ initSSE();
 var allMeasurements = [];
 
 // Maximaler Lux Level für die Berechnung des Prozentwerts und als maximaler Wert für das Chart.
+// -- TODO Aufgabe 1 -- 
+// Maximalwert anpassen
 var maxLevel = 1000;
 
 // Diese Funktion wird immer dann ausgeführt, wenn ein neues Event empfangen wird.
@@ -37,6 +39,8 @@ function updateVariables(data) {
 
         // Farbe des Balkens abhängig von Level festlegen
         // Liste aller unterstützten Farben: https://www.w3schools.com/cssref/css_colors.asp
+        // -- TODO Aufgabe 2 -- 
+        // Weitere Farben abhängig vom Level
         if (level < 50) {
             color = "Blue";
         } else {
@@ -64,11 +68,9 @@ function updateVariables(data) {
         var luxAverage = luxSum / allMeasurements.length;
         //console.log(luxAverage);
 
-        // Durchschnittlichen Lux-Wert in Prozent umrechnen und als Balken und Text anzeigen
-        var levelAverage = luxAverage * (100 / maxLevel);
-        var widthStyleAverage = "width: " + levelAverage + "%;"
-        document.getElementById("luxlevel-average-bar").style = widthStyleAverage;
-        document.getElementById("luxlevel-average-text").innerHTML = luxAverage.toFixed(2) + " Lux"; // Auf 2 Nachkommastellen reduzieren
+        // -- TODO Aufgabe 3 -- 
+        // Durchschnittlichen Lux-Wert (luxAverage) in Prozent umrechnen und als Balken und Text anzeigen
+        
 
         // Wert im Chart hinzufügen
         addData(lux);
@@ -78,6 +80,8 @@ function updateVariables(data) {
 //////////////////////////////////
 /////   Code für das Chart   /////
 //////////////////////////////////
+
+// Line Chart Dokumentation: https://developers.google.com/chart/interactive/docs/gallery/linechart
 
 // Chart und Variablen 
 var chartData, chartOptions, chart;
@@ -118,10 +122,9 @@ function drawChart() {
 // Eine neuen Wert ins Chart hinzufügen
 function addData(lux) {
 
-    if (allMeasurements.length > 10) {
-        // Älteste Messung in den Chartdaten entfernen 
-        chartData.removeRow(0);
-    }
+    // -- TODO Aufgabe 4 --
+    // Nur die letzten 10 gemessenen Werte anzeigen.
+    // Tipp: mit chartData.removeRow(0) kann der erste Eintrag im Chart entfernt werden.
 
     // aktuelles Datum/Zeit
     var date = new Date();
