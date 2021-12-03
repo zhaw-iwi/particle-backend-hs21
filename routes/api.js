@@ -1,4 +1,5 @@
 const axios = require('axios');
+const logger = require('../db/logger.js');
 
 module.exports = function (app, devices) {
 
@@ -51,5 +52,20 @@ module.exports = function (app, devices) {
                     res.status(500).send({ error: "could not execute function " + functionName })
                 });
         }
+    })
+
+    app.get('/api/:db/:collection', (req, res) => {
+        var db = req.params.db;
+        var collection = req.params.collection;
+
+        logger.query(db, collection, req.query, (success, result) => {
+            if (success) {
+                res.send(result);
+            }
+            else {
+                res.status(500).send({ error: result });
+            }
+        });
+
     })
 }

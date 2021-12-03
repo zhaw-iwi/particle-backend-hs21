@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB example</title>
+</head>
+
+<body>
+
+    <h4>Query</h4>
+
+    <p>
+        <label>DB name: </label>
+        <br>
+        <input type="text" id="db">
+    </p>
+
+    <p>
+        <label>Collection name: </label>
+        <br>
+        <input type="text" id="collection">
+    </p>
+
+
+    <p>
+        <label>Query: </label>
+        <br>
+        <input type="text" id="query" placeholder="timestamp=2021-10-26">
+    </p>
+
+    <p>
+        <button onclick="getResult()">Get Result</button>
+    </p>
+
+    <p id="result">-</p>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="db_demo.js"></script>
+</body>
+
+</html>
